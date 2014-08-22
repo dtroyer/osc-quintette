@@ -1,5 +1,3 @@
-#   Copyright 2013 Nebula Inc.
-#
 #   Licensed under the Apache License, Version 2.0 (the "License"); you may
 #   not use this file except in compliance with the License. You may obtain
 #   a copy of the License at
@@ -13,9 +11,14 @@
 #   under the License.
 #
 
-"""Exception definitions"""
+"""v1 Client interface"""
+
+from keystoneclient import httpclient
 
 
-class UnsupportedVersion(Exception):
-    """The user is trying to use an unsupported version of the API"""
-    pass
+class Client(httpclient.HTTPClient):
+    """New-style client for API"""
+
+    def __init__(self, **kwargs):
+        """Initialize a new client"""
+        super(Client, self).__init__(**kwargs)

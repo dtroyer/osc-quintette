@@ -11,3 +11,18 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+
+"""
+test_oscquintette
+----------------------------------
+
+Tests for `oscquintette` module.
+"""
+
+from oscquintette.tests import base
+
+
+class TestOSCQuintette(base.TestCase):
+
+    def test_something(self):
+        pass

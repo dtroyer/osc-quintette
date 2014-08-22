@@ -2,6 +2,6 @@
 Usage
 ========
 
-To use python-oscplugin in a project::
+To use python-oscquintette in a project::
 
-	import oscplugin
+	import oscquintette

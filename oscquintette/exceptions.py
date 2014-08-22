@@ -1,5 +1,3 @@
-#   Copyright 2013 Nebula Inc.
-#
 #   Licensed under the Apache License, Version 2.0 (the "License"); you may
 #   not use this file except in compliance with the License. You may obtain
 #   a copy of the License at
@@ -13,24 +11,9 @@
 #   under the License.
 #
 
-import sys
+"""Exception definitions"""
 
 
-AUTH_TOKEN = "foobar"
-AUTH_URL = "http://0.0.0.0"
-
-
-class FakeApp(object):
-    def __init__(self):
-        _stdout = None
-        self.client_manager = None
-        self.stdin = sys.stdin
-        self.stdout = _stdout or sys.stdout
-        self.stderr = sys.stderr
-        self.restapi = None
-
-
-class FakeClientManager(object):
-    def __init__(self):
-        self.identity = None
-        self.auth_ref = None
+class UnsupportedVersion(Exception):
+    """The user is trying to use an unsupported version of the API"""
+    pass

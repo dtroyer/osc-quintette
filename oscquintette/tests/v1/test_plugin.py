@@ -1,5 +1,3 @@
-#   Copyright 2013 Nebula Inc.
-#
 #   Licensed under the Apache License, Version 2.0 (the "License"); you may
 #   not use this file except in compliance with the License. You may obtain
 #   a copy of the License at
@@ -15,14 +13,14 @@
 
 import sys
 
-from oscplugin.tests import base
-from oscplugin.tests import fakes
-from oscplugin.v1 import plugin
+from oscquintette.tests import base
+from oscquintette.tests import fakes
+from oscquintette.v1 import plugin
 
 # Load the plugin init module for the plugin list and show commands
-import oscplugin.plugin
-plugin_name = 'oscplugin'
-plugin_client = 'oscplugin.plugin'
+import oscquintette.plugin
+plugin_name = 'oscquintette'
+plugin_client = 'oscquintette.plugin'
 
 
 class FakePluginV1Client(object):
@@ -37,7 +35,7 @@ class TestPluginV1(base.TestCommand):
     def setUp(self):
         super(TestPluginV1, self).setUp()
 
-        self.app.client_manager.oscplugin = FakePluginV1Client(
+        self.app.client_manager.oscquintette = FakePluginV1Client(
             endpoint=fakes.AUTH_URL,
             token=fakes.AUTH_TOKEN,
         )
@@ -71,7 +69,7 @@ class TestPluginList(TestPluginV1):
         self.assertEqual(columns, collist)
         datalist = ((
             plugin_name,
-            oscplugin.plugin.API_VERSIONS.keys(),
+            oscquintette.plugin.API_VERSIONS.keys(),
             plugin_client,
         ), )
         self.assertEqual(tuple(data), datalist)
@@ -104,7 +102,7 @@ class TestPluginShow(TestPluginV1):
         collist = ('1', 'module', 'name')
         self.assertEqual(columns, collist)
         datalist = (
-            oscplugin.plugin.API_VERSIONS['1'],
+            oscquintette.plugin.API_VERSIONS['1'],
             plugin_client,
             plugin_name,
         )

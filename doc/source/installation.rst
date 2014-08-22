@@ -4,9 +4,9 @@ Installation
 
 At the command line::
 
-    $ pip install python-oscplugin
+    $ pip install python-oscquintette
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv python-oscplugin
-    $ pip install python-oscplugin
+    $ mkvirtualenv python-oscquintette
+    $ pip install python-oscquintette

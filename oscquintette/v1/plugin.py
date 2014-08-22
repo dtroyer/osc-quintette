@@ -1,5 +1,3 @@
-#   Copyright 2013 Nebula Inc.
-#
 #   Licensed under the Apache License, Version 2.0 (the "License"); you may
 #   not use this file except in compliance with the License. You may obtain
 #   a copy of the License at
@@ -22,7 +20,7 @@ import sys
 from cliff import lister
 from cliff import show
 
-from oscplugin import exceptions
+from oscquintette import exceptions
 
 
 class ListPlugin(lister.Lister):

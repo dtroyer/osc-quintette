@@ -1,64 +1,49 @@
-================
-python-oscplugin
-================
+===================
+python-oscquintette
+===================
 
-OpenStackClient reference plugin module
+**Yet a glint of sunlight on the horizon**
 
-The OSC plugin system is designed so that the plugin need only be
-properly installed for OSC to find and use it.  It utilizes the
-``setuptools`` entry points mechanism to advertise to OSC the
-plugin module and supported commands.
+OpenStackClient plugin
 
-**oscplugin** is a sample OpenStackClient (OSC) plugin implementation that
-demonstrates how to add commands via OSC's extension mechanism.  It adds
-two commands (``plugin list`` and ``plugin show``) to demonstrate the simple
-case of new commands that do not require authentication.
+**oscquintette** is an OpenStackClient (OSC) plugin that performs a number
+of composite commands based on common operations. It isn't as big as
+orchestration, but it does more than one thing at a time...
 
-Discovery
-=========
+A ``qserver`` is a set of attributes describing a server and some additional
+resources to accompany it.
 
-OSC discovers extensions by enumerating the entry points found under
-``openstack.cli.extension`` and initializing the given client module.
+Commands
+========
 
-::
+``qserver create`` - Creates a Quintette-configured server
 
-    [entry_points]
-    openstack.cli.extension =
-        oscplugin = oscplugin.plugin
+* if only a qserver name is given, and it exists, the qserver will be created
+* if --define is included the server configuration will be saved under the
+specified name
 
-The client module must implement the following interface functions:
+Qserver definitions are saved in a local config file.
+If we get really fancy we'll put them in the object store!
 
-* ``API_NAME`` - A string containing the plugin API name; this is
-  the name of the entry point declaring the plugin client module
-  (``oscplugin = ...`` in the example above) and the group name for
-  the plugin commands (``openstack.oscplugin.v1 =`` in the example below)
-* ``API_VERSION_OPTION`` (optional) - If set, the name of the API
-  version attribute; this must be a valid Python identifier and
-  match the destination set in ``build_option_parser()``.
-* ``API_VERSIONS`` - A dict mapping a version string to the client class
-* ``build_option_parser(parser)`` - Hook to add global options to the parser
-* ``make_client(instance)`` - Hook to create the client object
+``qserver delete`` - Delete a configured server and optionally its
+associated variable resources.
 
-OSC enumerates the loaded plugins and loads commands from the entry points
-defined for the API version:
+* basically volumes may be be deleted, the remaining resources are likely to be re-used
 
-::
+Objects
+=======
 
-    openstack.oscplugin.v1 =
-        plugin_list = oscplugin.v1.plugin:ListPlugin
-        plugin_show = oscplugin.v1.plugin:ShowPlugin
+The resource objects available for inclusion in a qserver definition are a subset
+of those already defined in OSC.
 
-Note that OSC defines the group name as ``openstack.<api-name>.v<version>``
-so the version should not contain the leading 'v' character.
+* flavor: a flavor name/id, or a list of primary flavor attributes used to locate the closes flavor available
+* key-name: a key pair name, or a filename to upload
+* image: an image name/id, or a list of image properties used to locate the closest image available
+* security-group: a security group
+* volume: a volume name/id, or a list of volume attributes used to create a new one
 
-This second step is identical to that performed for all but the Identity
-client in OSC itself.  Identity is special due to the authentication
-requirements.  This limits the ability to add additional auth modules to OSC.
-
-Client
-======
-
-The current implementation of the ``oscplugin`` Client class is a
-simple subclass of ``keystone.HTTPClient``.  This allows tracking of
-the changes being made in ``keystoneclient`` to refactor the Session and
-authentication classes.
+----
+The badly spelled **Quintette** is borrowed from the name of Raymond Scott's
+group from the 1930's.  You may know parts of his __Powerhouse__ or __Dinner
+Music For A Pack of Hungry Cannibals__ from Warner Bros. cartoons of the mid
+20th century.

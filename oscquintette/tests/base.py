@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2010-2011 OpenStack Foundation
-# Copyright (c) 2013 Hewlett-Packard Development Company, L.P.
-# Copyright 2013 Nebula Inc.
-#
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
 # a copy of the License at
@@ -21,7 +17,7 @@ import os
 import fixtures
 import testtools
 
-from oscplugin.tests import fakes
+from oscquintette.tests import fakes
 
 _TRUE_VALUES = ('true', '1', 'yes')
 

@@ -1,5 +1,3 @@
-#   Copyright 2013 Nebula Inc.
-#
 #   Licensed under the Apache License, Version 2.0 (the "License"); you may
 #   not use this file except in compliance with the License. You may obtain
 #   a copy of the License at
@@ -22,17 +20,17 @@ from openstackclient.common import utils
 
 LOG = logging.getLogger(__name__)
 
-DEFAULT_OSCPLUGIN_API_VERSION = '1'
+DEFAULT_OSCQUINTETTE_API_VERSION = '1'
 
 # Required by the OSC plugin interface
-API_NAME = 'oscplugin'
-API_VERSION_OPTION = 'os_oscplugin_api_version'
+API_NAME = 'oscquintette'
+API_VERSION_OPTION = 'os_oscquintette_api_version'
 API_VERSIONS = {
-    '1': 'oscplugin.v1.client.Client',
+    '1': 'oscquintette.v1.client.Client',
 }
 
 
-# Required by the OSC plugin interface
+# Required by the OSC quintette interface
 def make_client(instance):
     """Returns a client to the ClientManager
 
@@ -63,12 +61,12 @@ def build_option_parser(parser):
         initialized by OpenStackShell.
     """
     parser.add_argument(
-        '--os-oscplugin-api-version',
-        metavar='<oscplugin-api-version>',
+        '--os-oscquintette-api-version',
+        metavar='<oscquintette-api-version>',
         default=utils.env(
-            'OS_OSCPLUGIN_API_VERSION',
-            default=DEFAULT_OSCPLUGIN_API_VERSION),
-        help='OSC Plugin API version, default=' +
-             DEFAULT_OSCPLUGIN_API_VERSION +
-             ' (Env: OS_OSCPLUGIN_API_VERSION)')
+            'OS_OSCQUINTETTE_API_VERSION',
+            default=DEFAULT_OSCQUINTETTE_API_VERSION),
+        help='OSC Quintette API version, default=' +
+             DEFAULT_OSCQUINTETTE_API_VERSION +
+             ' (Env: OS_OSCQUINTETTE_API_VERSION)')
     return parser

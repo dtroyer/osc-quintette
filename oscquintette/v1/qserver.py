@@ -52,7 +52,7 @@ class CreateQServer(server.CreateServer):
         return parser
 
     def take_action(self, parsed_args):
-        self.log.debug('take_action(%s)', parsed_args)
+        self.log.info('take_action(%s)', parsed_args)
         compute_client = self.app.client_manager.compute
         pa = vars(parsed_args)
 
@@ -87,3 +87,27 @@ class CreateQServer(server.CreateServer):
             raise osc_exceptions.CommandError(msg)
 
         return super(self.__class__, self).take_action(parsed_args)
+
+
+class ShowQServer(server.ShowServer):
+    """Show qserver details"""
+
+    log = logging.getLogger(__name__ + '.ShowQServer')
+
+    def get_parser(self, prog_name):
+        parser = super(self.__class__, self).get_parser(prog_name)
+
+        # Monkey with the parser here
+
+        return parser
+
+    def take_action(self, parsed_args):
+        self.log.info('take_action(%s)', parsed_args)
+
+        data = super(self.__class__, self).take_action(parsed_args)
+
+        # Change a field name...not sorted!
+        return (
+            (f if f != 'tenant_id' else 'project_id' for f in list(data[0])),
+            data[1],
+        )

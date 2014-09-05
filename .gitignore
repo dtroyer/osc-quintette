@@ -49,3 +49,6 @@ ChangeLog
 # Editors
 *~
 .*.swp
+
+# Mac
+.DS_Store

@@ -26,7 +26,7 @@ DEFAULT_OSCQUINTETTE_API_VERSION = '1'
 API_NAME = 'oscquintette'
 API_VERSION_OPTION = 'os_oscquintette_api_version'
 API_VERSIONS = {
-    '1': 'oscquintette.v1.client.Client',
+    '1': 'oscquintette.plugin.EmptyClient',
 }
 
 
@@ -70,3 +70,6 @@ def build_option_parser(parser):
              DEFAULT_OSCQUINTETTE_API_VERSION +
              ' (Env: OS_OSCQUINTETTE_API_VERSION)')
     return parser
+
+class EmptyClient(object):
+    pass

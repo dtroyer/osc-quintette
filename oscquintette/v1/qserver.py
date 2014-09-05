@@ -56,23 +56,29 @@ class CreateQServer(server.CreateServer):
         compute_client = self.app.client_manager.compute
         pa = vars(parsed_args)
 
-        # Just munge the passed args
+        # Convert the flavor args to a flavor
         flair = {}
         for i in ['ram', 'disk', 'vcpus']:
-            if i in parsed_args:
+            if i in parsed_args and getattr(parsed_args, i, None) is not None:
                 flair[i] = pa.pop(i)
 
-        all_flavors = compute_client.flavors.list(),
-        flavors = find.find_flair(
-            all_flavors,
-            'ram',
-            **flair
-        )
+        flavors = []
+        all_flavors = None
+        if len(flair) > 0:
+            all_flavors = compute_client.flavors.list(),
+            flavors = find.find_flair(
+                all_flavors,
+                'ram',
+                **flair
+            )
 
-        if len(flavors) > 1 and flavors[0] is not None:
-            parsed_args.flavor = flavors[0].id
-            self.log.info('selected flavor %s', flavors[0].name)
-        elif parsed_args.flavor is not None:
+            print "flavors: %s" % flavors
+            if len(flavors) > 1 and flavors[0] is not None:
+                parsed_args.flavor = flavors[0].id
+                self.log.info('selected flavor %s', flavors[0].name)
+
+        # What exactly does this do??? only verify flavor if we have a list but nothing found and --flavor was given?
+        if parsed_args.flavor is not None and all_flavors is not None:
             f_name = find.findbyattr(all_flavors, 'name', parsed_args.flavor)
             if len(f_name) > 0:
                 parsed_args.flavor = f_name[0]
@@ -82,6 +88,7 @@ class CreateQServer(server.CreateServer):
                     parsed_args.flavor = f_id[0]
                 else:
                     parsed_args.flavor = None
+
         if parsed_args.flavor is None:
             msg = 'No suitable flavor found'
             raise osc_exceptions.CommandError(msg)

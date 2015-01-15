@@ -27,6 +27,7 @@ API_NAME = 'oscquintette'
 API_VERSION_OPTION = 'os_oscquintette_api_version'
 API_VERSIONS = {
     '1': 'oscquintette.plugin.EmptyClient',
+    '2': 'oscquintette.plugin.TimeClient',
 }
 
 
@@ -71,5 +72,28 @@ def build_option_parser(parser):
              ' (Env: OS_OSCQUINTETTE_API_VERSION)')
     return parser
 
+
 class EmptyClient(object):
+    """The ultimate placeholder"""
+
     pass
+
+
+class TimeClient(object):
+    """Bare client that contains a nova-compatible timing interface"""
+
+    def __init__(self):
+        self.times = []  # [("item", starttime, endtime), ...]
+
+    def get_timings(self):
+        return self.times
+
+    def reset_timings(self):
+        self.times = []
+
+#     def _time_request(self, url, method, **kwargs):
+#         start_time = time.time()
+#         resp, body = self.request(url, method, **kwargs)
+#         self.times.append(("%s %s" % (method, url),
+#                            start_time, time.time()))
+#         return resp, body

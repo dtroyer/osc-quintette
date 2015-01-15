@@ -135,7 +135,6 @@ class ServerList(lister.Lister):
             endpoint,
             **kwargs
         )
-        print "data: %s" % data
 
         if parsed_args.long:
             columns = (
